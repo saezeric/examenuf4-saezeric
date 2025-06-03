@@ -15,6 +15,7 @@ const MiToken =
 export default function Peliculas() {
   const [peliculas, setPeliculas] = useState<Pelicula[]>([]);
   const [favoritas, setFavoritas] = useState<number[]>([]);
+  const [busqueda, setBusqueda] = useState(""); // Estado para el buscador
 
   useEffect(() => {
     const fav = localStorage.getItem("favoritas");
@@ -61,31 +62,46 @@ export default function Peliculas() {
     }
   };
 
+  const peliculasFiltradas = peliculas.filter((pelicula) =>
+    pelicula.title.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 text-left">
-      {peliculas.map((pelicula) => (
-        <div key={pelicula.id} className="relative">
-          <Link
-            href={`/pelicula/${pelicula.id}`}
-            className="border border-gray-200 rounded-lg overflow-hidden bg-black shadow-sm block"
-          >
-            <img
-              src={`https://image.tmdb.org/t/p/w500${pelicula.poster_path}`}
-              alt={pelicula.title}
-              className="w-full aspect-[2/3] object-cover bg-black"
-            />
-            <div className="p-5 text-base font-medium bg-black">
-              {pelicula.title}
-            </div>
-          </Link>
-          <button
-            onClick={() => toggleFavorita(pelicula.id)}
-            className="absolute top-2 right-2 bg-white rounded-full p-3 shadow text-2xl"
-          >
-            {favoritas.includes(pelicula.id) ? "❤️" : "🤍"}
-          </button>
-        </div>
-      ))}
+    <div>
+      <div className="p-6">
+        <input
+          type="text"
+          placeholder="Buscar película..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className="border rounded px-3 py-2 w-full max-w-md"
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 text-left">
+        {peliculasFiltradas.map((pelicula) => (
+          <div key={pelicula.id} className="relative">
+            <Link
+              href={`/pelicula/${pelicula.id}`}
+              className="border border-gray-200 rounded-lg overflow-hidden bg-black shadow-sm block"
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/w500${pelicula.poster_path}`}
+                alt={pelicula.title}
+                className="w-full aspect-[2/3] object-cover bg-black"
+              />
+              <div className="p-5 text-base font-medium bg-black">
+                {pelicula.title}
+              </div>
+            </Link>
+            <button
+              onClick={() => toggleFavorita(pelicula.id)}
+              className="absolute top-2 right-2 bg-white rounded-full p-3 shadow text-2xl"
+            >
+              {favoritas.includes(pelicula.id) ? "❤️" : "🤍"}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

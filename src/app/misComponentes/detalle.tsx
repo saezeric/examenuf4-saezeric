@@ -17,7 +17,7 @@ interface DetallesPelicula {
   overview: string;
   release_date: string;
   genres: Genero[];
-  runtime: number; // Añadido
+  runtime: number;
 }
 
 export default function DetallePelicula() {
@@ -56,20 +56,9 @@ export default function DetallePelicula() {
       </div>
     );
 
-  // Formatear fecha de estreno
-  const fechaEstreno = new Date(pelicula.release_date).toLocaleDateString(
-    "es-ES",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }
-  );
+  const fechaEstreno = pelicula.release_date;
 
-  // Formatear duración
-  const duracion = pelicula.runtime
-    ? `${Math.floor(pelicula.runtime / 60)}h ${pelicula.runtime % 60}min`
-    : "Desconocida";
+  const duracion = `${pelicula.runtime} min`;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
