@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Pelicula {
   id: number;
@@ -40,9 +41,10 @@ export default function Peliculas() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 text-left">
       {peliculas.map((pelicula) => (
-        <div
+        <Link
           key={pelicula.id}
-          className="border border-gray-200 rounded-lg overflow-hidden bg-black shadow-sm"
+          href={`/pelicula/${pelicula.id}`}
+          className="border border-gray-200 rounded-lg overflow-hidden bg-black shadow-sm block"
         >
           <img
             src={`https://image.tmdb.org/t/p/w500${pelicula.poster_path}`}
@@ -52,7 +54,7 @@ export default function Peliculas() {
           <div className="p-5 text-base font-medium bg-black">
             {pelicula.title}
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
