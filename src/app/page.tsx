@@ -12,13 +12,13 @@ export default function MovieExplorer() {
         <div className="w-full mx-auto text-center">
           <nav className="mb-4">
             <button
-              className="mx-2 px-4 py-2 bg-blue-500 text-white rounded"
+              className="mx-2 px-4 py-2 bg-white text-black rounded w-100"
               onClick={() => setView("peliculas")}
             >
               Películas
             </button>
             <button
-              className="mx-2 px-4 py-2 bg-green-500 text-white rounded"
+              className="mx-2 px-4 py-2 bg-white text-black rounded w-100"
               onClick={() => setView("favoritas")}
             >
               Favoritas
